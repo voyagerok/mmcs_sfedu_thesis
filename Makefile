@@ -2,7 +2,7 @@
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: main.pdf
+all: main.pdf pres.pdf
 
 # MAIN LATEXMK RULE
 
@@ -15,6 +15,9 @@ all: main.pdf
 
 main.pdf: main.tex
 	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make main.tex
+
+pres.pdf: presentation.tex
+	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make presentation.tex
 
 clean:
 	latexmk -CA

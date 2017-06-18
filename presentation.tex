@@ -89,6 +89,16 @@
 \end{example}
 \end{frame}
 
+\begin{frame}
+\frametitle{Концепция решения: Томита-парсер}
+\begin{itemize}
+	\item Программа для извлечени фактов из текстов на естественном языке
+	\item Разработана в Яндексе, исходные коды открыты
+	\item Реализует алгоритм GLR-парсинга
+	\item Не имеет средств задания контекста для искомых данных
+\end{itemize}
+\end{frame}
+
 \section{Концепция решения}
 \begin{frame}
 \frametitle{Концепция решения: структура}
@@ -100,28 +110,18 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Концепция решения: алгоритм Томиты}
-\begin{itemize}
-	\item Разработан японским ученым Масару Томитой
-	\item Generalized LR парсер
-	\item Graph Structured Stack: стек разбора с поддержкой операций ветвления и слияния
-\end{itemize}
-\begin{figure}% p означает, что нужно выделить для рисунка
-\centering
-\includegraphics[width=0.7\textwidth]{img/gss-step5.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Концепция решения: Томита-парсер}
-\begin{itemize}
-	\item Программа для извлечени фактов из текстов на естественном языке
-	\item Разработана в Яндексе, исходные коды открыты
-	\item Реализует алгоритм GLR-парсинга
-	\item Не имеет средств задания контекста для искомых данных
-\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]
+%\frametitle{Концепция решения: алгоритм Томиты}
+%\begin{itemize}
+%	\item Разработан японским ученым Масару Томитой
+%	\item Generalized LR парсер
+%	\item Graph Structured Stack: стек разбора с поддержкой операций ветвления и слияния
+%\end{itemize}
+%\begin{figure}% p означает, что нужно выделить для рисунка
+%\centering
+%\includegraphics[width=0.7\textwidth]{img/gss-step5.png}
+%\end{figure}
+%\end{frame}
 
 \section{Реализация}
 \begin{frame}[fragile]
@@ -202,19 +202,19 @@ Find FullDate with deps (left: Town) as AgreementDateValue;
 \end{figure}
 \end{frame}
 
-\begin{frame}
-\frametitle{Реализация: извлечение полей}
-Этапы итерации:
-\begin{description}
-	\item[Actor] получение все $action$
-	\item[Reducer] выполнение активных сверток
-	\item[Shifter] выполнение активных сдвигов и формирование следующего уровня 
-\end{description}
-\begin{figure}% p означает, что нужно выделить для рисунка
-\centering
-\includegraphics[width=\textwidth]{img/glr-iteration.png}
-\end{figure}
-\end{frame}
+%\begin{frame}
+%\frametitle{Реализация: извлечение полей}
+%Этапы итерации:
+%\begin{description}
+%	\item[Actor] получение все $action$
+%	\item[Reducer] выполнение активных сверток
+%	\item[Shifter] выполнение активных сдвигов и формирование следующего уровня 
+%\end{description}
+%\begin{figure}% p означает, что нужно выделить для рисунка
+%\centering
+%\includegraphics[width=\textwidth]{img/glr-iteration.png}
+%\end{figure}
+%\end{frame}
 
 \section{Результаты}
 \begin{frame}
