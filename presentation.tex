@@ -1,10 +1,13 @@
-\documentclass[10pt]{beamer}
+%\documentclass[12pt]{beamer}
+\documentclass{beamer}
 
 \usepackage{amssymb,amsmath,mathtext}
 \usepackage{indentfirst,amsfonts}
 \usepackage{makecell,multirow,longtable}
 \usepackage{verbatim}
 \usepackage {graphicx}
+\usepackage{tabularx}
+\usepackage{makecell}
 
 \usepackage[russian]{babel}
 \usepackage[T2A]{fontenc}
@@ -102,12 +105,16 @@
 \section{Концепция решения}
 \begin{frame}
 \frametitle{Концепция решения: структура}
-Три основных модуля:
-\begin{itemize}
-	\item Разметка входного текста договора
-	\item Анализ входных правил, описывающих шаблоны искомых полей
-	\item Извлечение полей с использованием алгоритма Томиты
-\end{itemize}
+%Три основных модуля:
+%\begin{itemize}
+%	\item Разметка входного текста договора
+%	\item Анализ входных правил, описывающих шаблоны искомых полей
+%	\item Извлечение полей с использованием алгоритма Томиты
+%\end{itemize}
+\begin{figure}% p означает, что нужно выделить для рисунка
+\centering
+\includegraphics[width=0.7\textwidth]{img/ProjectDiagramPres.png}
+\end{figure}
 \end{frame}
 
 %\begin{frame}[fragile]
@@ -202,6 +209,36 @@ Find FullDate with deps (left: Town) as AgreementDateValue;
 \end{figure}
 \end{frame}
 
+\begin{frame}
+\frametitle{Реализация: зависимости и контекст}
+\begin{itemize}
+	\item Зависимости по пространственному признаку: левые, правые, верхние, нижние
+	\item Поле считается найденым только тогда, когда найдены все его зависимости
+	\item Контекстные слова характеризуют семантику слова: в деловой речи можно выделить весьма ограниченный набор таких слов
+	\item Эвристика поиска: $\sum_{n=1}^{N} \frac{1}{|Dist(W,w_n)|}$, где\\
+	$N$ - количество найденных контекстных слов\\
+	$W = w_1...w_k$ - результат разбора для некоторого правила $S$\\
+	$w_n$ - найденное ключевое слово к текущем абзаце
+\end{itemize}
+\end{frame}
+
+\section{Пример работы}
+\begin{frame}[shrink=30]
+\frametitle{Пример работы}
+\begin{center}
+\begin{tabularx}{\textwidth}{| X | X | X |}
+\hline
+\textbf{Текст договора} & \textbf{Набор правил} & \textbf{Результат} \\ 
+\hline
+Гражданин Меркулов Сергей Андреевич, именуемый в дальнейшем «Наймодатель», с одной стороны, и гражданин Меркулов Андрей Андреевич, именуемый в дальнейшем «Наниматель», заключили настоящий договор, далее «Договор»,  на следующих условиях: & Find PersonFullName (hint\_words: "наниматель") as Employer; & Иванов Андрей Андреевич \\ 
+\hline
+1. ПРЕДМЕТ НАСТОЯЩЕГО ДОГОВОРА
+1.1. Наймодатель предоставляет Нанимателю помещение, состоящее из трех комнаты, (в трехкомнатной квартире) расположенное по адресу город Ростов-на-Дону, улица Волкова, дом 5, квартира 184 за плату, во временное пользование в целях проживания. & Find Address (hint\_words: "располагаться"\, "находиться"\, "адрес") 
+as ApartementAddress; & город Ростов-на-Дону улица Волкова дом 5 \\ \hline
+\end{tabularx}
+\end{center}
+\end{frame}
+
 %\begin{frame}
 %\frametitle{Реализация: извлечение полей}
 %Этапы итерации:
@@ -222,7 +259,15 @@ Find FullDate with deps (left: Town) as AgreementDateValue;
 \begin{itemize}
 	\item Изучены существующие алгоритмы и программные решения для извлечения информации из текстов на естественном языке
 	\item Разработана система для извлечения реквизитов с учетом специфики слабоструктурированных документов
+	\begin{itemize}
+		\item Процедура извлечения производится с помощью алгоритма Томиты
+		\item В процессе разбора учитываются морфологические и семантические свойства текста
+		\item Осуществляется анализ ключевых слов и зависимостей
+	\end{itemize}
 	\item Обеспечена возможность конфигурировать систему извне путем задания правил, описывающих шаблоны полей
+	\begin{itemize}
+		\item Реализован декларативный язык описания структуры полей и параметров поиска
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
